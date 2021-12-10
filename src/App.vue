@@ -6,7 +6,7 @@
                 <p>Clicks count: <b>{{ clicksCount }}</b></p>
                 <!-- Exercise -->
                 <!-- Build a Custom Directive which works like v-on (Listen for Events) -->
-                <button>button</button>
+                <button v-myListener="hasClicked">button</button>
             </div>
         </div>
     </div>
@@ -25,8 +25,17 @@
         }
       },
       directives: {
-        'eventListener': {
-          
+        myListener: {
+          bind(el, binding, vnode) {
+            el.onclick = function() {
+              binding.value();
+            }
+            if(binding.arg == 'click') {
+
+              // console.log(this.clicksCount);
+              this.hasClicked();
+            }
+          }
         }
       }
     }
